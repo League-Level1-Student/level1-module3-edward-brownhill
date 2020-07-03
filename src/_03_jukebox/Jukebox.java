@@ -5,6 +5,9 @@ package _03_jukebox;
  */
 
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,7 +15,11 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,7 +27,13 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
+public class Jukebox implements Runnable, ActionListener {
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	JButton button1 = new JButton();
+	JButton button2 = new JButton();
+	JButton button3 = new JButton();
+	JTextField textField = new JTextField();
 
     public void run() {
 
@@ -36,6 +49,22 @@ public class Jukebox implements Runnable {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
+    	
+    	frame.setPreferredSize(new Dimension(300,150));
+    	frame.setVisible(true);
+    	button1.setText("song 1");
+    	button2.setText("song 2");
+    	button3.setText("song 3");
+    	button1.addActionListener(this);
+    	button2.addActionListener(this);
+    	button3.addActionListener(this);
+    	panel.add(button1);
+    	panel.add(button2);
+    	panel.add(button3);
+    	panel.add(textField);
+    	frame.add(panel);
+    	frame.pack();
+    	
     }
     
     
@@ -44,6 +73,20 @@ public class Jukebox implements Runnable {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == button1) {
+			//play song 1
+		}
+		else if(e.getSource() == button2) {
+			//play song 2
+		}
+		else if(e.getSource() == button3) {
+			//play song 3
+		}
 	}
 
 }
